@@ -6,11 +6,14 @@ CFLAGS += `pkg-config --libs glib-2.0`
 MAIN_BINARY := gibmain
 
 MAIN_SOURCE_FILES := \
-	gibmain.c
-MAIN_HEADER_FILES := 
+	gibmain.c \
+	console.c
+MAIN_HEADER_FILES := \
+	console.h
 
+.PHONY: $(MAIN_SOURCE_FILES)
 $(MAIN_SOURCE_FILES): $(MAIN_HEADER_FILES)
-	gcc $^ $(CFLAGS) -o $(MAIN_BINARY)
+	gcc $(MAIN_SOURCE_FILES) $(CFLAGS) -o $(MAIN_BINARY)
 
 $(MAIN_BINARY): $(MAIN_SOURCE_FILES) 
 	
@@ -18,4 +21,7 @@ $(MAIN_BINARY): $(MAIN_SOURCE_FILES)
 .PHONY: all
 all: $(MAIN_BINARY)
 
+.PHONY: clean
+clean:
+	rm -f $(MAIN_BINARY)
 
